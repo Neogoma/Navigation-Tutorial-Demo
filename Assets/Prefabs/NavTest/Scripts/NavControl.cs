@@ -5,13 +5,19 @@ using com.Neogoma.HoboDream.Impl;
 using com.Neogoma.Octree;
 using com.Neogoma.Stardust.Navigation;
 
-public sealed class NavControl : MonoBehaviour
+public class NavControl : MonoBehaviour
 {
-    public GameObject pathInstance;
+    //prefab to instantiate and show the navigation.
+    public GameObject pathPrefab;
 
+    //navigation points to target.
     public List<IOctreeCoordnateObject> allNavPoints;
 
+    //guide bot controller.
+    public GuideBotController botController;
+
     private static NavControl mInstance = null;
+
     public static NavControl Instance
     {
         get { return mInstance; }
@@ -22,4 +28,9 @@ public sealed class NavControl : MonoBehaviour
         mInstance = this;
     }
 
+    //Initializes navigation for nav bot
+    public void InitGuideBot()
+    {
+        botController.StartNavigation(allNavPoints);
+    }
 }

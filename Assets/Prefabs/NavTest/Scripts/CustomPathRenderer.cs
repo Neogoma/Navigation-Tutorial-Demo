@@ -37,7 +37,7 @@ namespace Neogoma.Stardust.Demo.Navigator
             //Write here to display the path
             foreach (IOctreeCoordnateObject point in allNavigationsPoints)
             {
-                GameObject goInstance = GameObject.Instantiate(NavControl.Instance.pathInstance);
+                GameObject goInstance = GameObject.Instantiate(NavControl.Instance.pathPrefab);
 
                 goInstance.transform.localScale = new Vector3(1f, 1f, 1f);
                 goInstance.transform.position = point.GetCoordnates();

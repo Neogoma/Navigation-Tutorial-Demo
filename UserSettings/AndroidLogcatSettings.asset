@@ -1,9 +1,9 @@
 {
-    "m_SelectedDeviceId": "HT84T1A03177",
+    "m_SelectedDeviceId": "8AMY0N4QR",
     "m_SelectedPackage": {
-        "deviceId": "HT84T1A03177",
+        "deviceId": "8AMY0N4QR",
         "name": "com.neogoma.stardustsdksample",
-        "processId": 11334,
+        "processId": 28871,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -54,6 +54,30 @@
             "deviceId": "HT84T1A03177",
             "name": "com.neogoma.stardustsdksample",
             "processId": 11334,
+            "exited": false
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 10982,
+            "exited": false
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 17820,
+            "exited": false
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 20527,
+            "exited": false
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 28871,
             "exited": false
         }
     ],
