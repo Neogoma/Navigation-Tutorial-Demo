@@ -33,6 +33,9 @@ namespace Neogoma.Stardust.Demo.Navigator
         public GameObject targetReachedHint;
 
         public UnityEvent targetReached = new UnityEvent();
+        //button to enable navigation and guide bot.
+        public GameObject NavigationButton;
+
 
         private GameObject locationInstance;
         private PathFindingManager pathfindingManager;
@@ -48,11 +51,17 @@ namespace Neogoma.Stardust.Demo.Navigator
             pathfindingManager.onNavigationDatasReady.AddListener(PathFindingReady);            
             targetSelectionDropDown.onValueChanged.AddListener(OnTargetSelected);
             MapRelocationManager.Instance.onPositionFound.AddListener(PositionFound);
+            PathFindingManager.Instance.SetPathRenderer(new CustomPathRenderer());
         }
 
         private void PositionFound(RelocationResults arg0, CoordinateSystem arg1)
         {
-            targetSelectionDropDown.gameObject.SetActive(targets.Count>0); 
+            NavigationButton.gameObject.SetActive(true);
+        }
+
+        public void EnableTargetSelection()
+        {
+            targetSelectionDropDown.gameObject.SetActive(targets.Count > 0);
         }
 
         /// <summary>
@@ -62,8 +71,9 @@ namespace Neogoma.Stardust.Demo.Navigator
         {
             try
             {
+                pathfindingManager.ClearPath();
                 ITarget target = indexToTarget[selectedTargetIndex];
-                pathfindingManager.ShowPathToTarget(target,1f);
+                pathfindingManager.ShowPathToTarget(target,0.5f);
 
                 if (locationPrefab != null)
                 {
@@ -76,6 +86,7 @@ namespace Neogoma.Stardust.Demo.Navigator
                     locationInstance.SetActive(true);
 
                 }
+               
                 StartCoroutine(ReachTarget());
             }
             catch (KeyNotFoundException nokey)
@@ -98,8 +109,6 @@ namespace Neogoma.Stardust.Demo.Navigator
                 indexToTarget.Add(i+1, allTargets[i]);
             }
             targetSelectionDropDown.AddOptions(allTargetNames);
-            
-
         }
 
         private void OnTargetSelected(int val)
@@ -109,11 +118,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             { 
                 pathfindingManager.ClearPath();
                 locationInstance.SetActive(false);
-            
             }
         }
 
-
+        //starts checking if we reach the target.
         IEnumerator ReachTarget()
         {
             yield return new WaitForFixedUpdate();
@@ -123,7 +131,6 @@ namespace Neogoma.Stardust.Demo.Navigator
                 
                 if (Vector3.Distance(currentPos, locationInstance.transform.position) < 1f)
                 {
-
                     targetReached.Invoke();
                     yield return new WaitForSeconds(3f);
                     locationInstance.gameObject.SetActive(false);
@@ -137,10 +144,6 @@ namespace Neogoma.Stardust.Demo.Navigator
                     StartCoroutine(ReachTarget());
                 }
             }
-
-
         }
-
-        
     }
 }
