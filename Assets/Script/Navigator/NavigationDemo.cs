@@ -32,7 +32,8 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         public GameObject targetReachedHint;
 
-        public UnityEvent targetReached = new UnityEvent();
+        public static UnityEvent targetReached = new UnityEvent();
+        public static UnityEvent goToTarget = new UnityEvent();
         //button to enable navigation and guide bot.
         public GameObject NavigationButton;
 
@@ -73,8 +74,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             {
                 pathfindingManager.ClearPath();
                 ITarget target = indexToTarget[selectedTargetIndex];
-                pathfindingManager.ShowPathToTarget(target,0.5f);
+                pathfindingManager.ShowPathToTarget(target,2f);
+                NavControl.Instance.target = target.GetCoordnates();
 
+                NavControl.Instance.arrowController.Init();
                 if (locationPrefab != null)
                 {
                     if (locationInstance == null)
@@ -84,7 +87,6 @@ namespace Neogoma.Stardust.Demo.Navigator
 
                     locationInstance.transform.position = target.GetCoordnates();
                     locationInstance.SetActive(true);
-
                 }
                
                 StartCoroutine(ReachTarget());

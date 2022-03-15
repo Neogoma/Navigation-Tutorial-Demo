@@ -79,7 +79,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         {
             
             ShowMatchResults("Located sucessfully!", Color.green);
-            locateMeButton.gameObject.SetActive(true);
+            locateMeButton.gameObject.SetActive(false);
 
         }
 

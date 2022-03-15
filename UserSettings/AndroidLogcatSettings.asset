@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "8AMY0N4QR",
         "name": "com.neogoma.stardustsdksample",
-        "processId": 28871,
+        "processId": 15686,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -58,26 +58,50 @@
         },
         {
             "deviceId": "8AMY0N4QR",
-            "name": "com.neogoma.stardustsdksample",
-            "processId": 10982,
+            "name": "com.google.android.apps.nexuslauncher",
+            "processId": 2402,
             "exited": false
         },
         {
             "deviceId": "8AMY0N4QR",
             "name": "com.neogoma.stardustsdksample",
-            "processId": 17820,
+            "processId": 19518,
+            "exited": true
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 21345,
+            "exited": true
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 17223,
+            "exited": true
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 28218,
+            "exited": true
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 30371,
+            "exited": true
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustsdksample",
+            "processId": 9851,
             "exited": false
         },
         {
             "deviceId": "8AMY0N4QR",
             "name": "com.neogoma.stardustsdksample",
-            "processId": 20527,
-            "exited": false
-        },
-        {
-            "deviceId": "8AMY0N4QR",
-            "name": "com.neogoma.stardustsdksample",
-            "processId": 28871,
+            "processId": 15686,
             "exited": false
         }
     ],
