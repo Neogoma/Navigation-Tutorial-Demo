@@ -45,6 +45,10 @@ namespace Neogoma.Stardust.Demo.Navigator
         private Transform mainCameraTransform;
         public List<ITarget> targets;
 
+        public delegate void TargetAction(Vector3 target);
+        public static event TargetAction OnSetTarget;
+         
+
         private void Start()
         {
             mainCameraTransform = Camera.main.transform;
@@ -75,9 +79,12 @@ namespace Neogoma.Stardust.Demo.Navigator
                 pathfindingManager.ClearPath();
                 ITarget target = indexToTarget[selectedTargetIndex];
                 pathfindingManager.ShowPathToTarget(target,2f);
-                NavControl.Instance.target = target.GetCoordnates();
 
-                NavControl.Instance.arrowController.Init();
+                if (OnSetTarget != null)
+                    OnSetTarget(target.GetCoordnates());
+                
+                 
+
                 if (locationPrefab != null)
                 {
                     if (locationInstance == null)
