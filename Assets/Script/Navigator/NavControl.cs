@@ -7,48 +7,63 @@ using com.Neogoma.Stardust.Navigation;
 using UnityEngine.Events;
 using TMPro;
 
-/// <summary>
-/// Responsible for controlling navigation using guide bot.
-/// </summary>
+
 
 namespace Neogoma.Stardust.Demo.Navigator
 {
+    /// <summary>
+    /// Responsible for controlling navigation using guide bot.
+    /// </summary>
     public class NavControl : MonoBehaviour
     {
-        //prefab to instantiate and show the navigation.
+        /// <summary>
+        /// prefab to instantiate and show the navigation.
+        /// </summary>
         public GameObject pathPrefab;
-        //navigation points to target.
+        /// <summary>
+        /// navigation points to target.
+        /// </summary>
         public List<Vector3> allNavPoints;
-        //guide bot controller.
+        /// <summary>
+        /// guide bot controller.
+        /// </summary>
         public GameObject robot;
-        //reference to target position.
-        [HideInInspector]
-        public Vector3 target;
-        //Opens Up compass panel with arrow.
-        public GameObject CompassButton;
-        //panel that holds Dialogue and Target option.
+       
+        /// <summary>
+        /// panel that holds Dialogue and Target option.
+        /// </summary>
         public GameObject worldSpacePanel;
-        //Navigation Panel message.
+        /// <summary>
+        /// Navigation Panel message.
+        /// </summary>
         public TMP_Text navPanelMessage;
-        //string used to change navPanelMessage when target reached.
+        /// <summary>
+        /// string used to change navPanelMessage when target reached.
+        /// </summary>
         public string reachedMessage;
-        //compass arrow controller component.
-        public ArrowController arrowController;
+        /// <summary>
+        /// Distance in front of the camera the guide bot will spawn.
+        /// </summary>
+        public float distancefromCamera = 1.1f;
+        /// <summary>
+        /// Camera transform reference.
+        /// </summary>
+        private Transform cameraPosition;
 
         public delegate void PrefabAction(GameObject pathPrefab);
         public static event PrefabAction OnSetPrefab;
 
-        private Transform cameraPosition;
+        
         private GuideBotController botController;
         
        
- 
         private void Start()
         {
             botController = robot.GetComponent<GuideBotController>();
             cameraPosition = Camera.main.transform;
-             
-            CustomPathRenderer.OnSetListOfPositions += SetListOfPoints; //subscribe to event when display path is called positions added to the list we get that info.
+
+            //subscribe to event when display path is called positions added to the list we get that info.
+            CustomPathRenderer.OnSetListOfPositions += SetListOfPoints; 
             GuideBotController.OnFinishedNavigation += ShowFinishedPanel;
 
             if (pathPrefab != null)
@@ -70,7 +85,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         {
             worldSpacePanel.gameObject.SetActive(true);
             robot.gameObject.SetActive(true);
-            robot.transform.position = cameraPosition.position + cameraPosition.forward * 1.1f;
+            robot.transform.position = cameraPosition.position + cameraPosition.forward * distancefromCamera;
             Vector3 targetPostition = new Vector3(cameraPosition.position.x, transform.position.y, cameraPosition.position.z) - transform.position;
             robot.transform.LookAt(targetPostition);
         }
@@ -88,7 +103,6 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         private void ShowFinishedPanel()
         {
-            //enable panel with default message where would you like to go.
             worldSpacePanel.SetActive(true);
             navPanelMessage.text = reachedMessage;
         }

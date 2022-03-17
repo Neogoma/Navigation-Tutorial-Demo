@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Compass system points on only one axis towards the target direction 
-/// </summary>
+
 namespace Neogoma.Stardust.Demo.Navigator
 {
+    /// <summary>
+    /// Compass system points on only one axis towards the target direction 
+    /// </summary>
     public class ArrowController : MonoBehaviour
     {
         /// <summary>

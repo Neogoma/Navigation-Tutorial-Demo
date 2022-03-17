@@ -6,52 +6,72 @@ using UnityEngine.Events;
 
 namespace Neogoma.Stardust.Demo.Navigator
 {
+    /// <summary>
+    /// Controls guide bot movement and rotation throught the defined path to target.
+    /// </summary>
     public class GuideBotController : MonoBehaviour
     {
-        //List of waypoints to go through.
-        public List<Vector3> waypointList = new List<Vector3>();
-        //moving speed of  guide bot
+        /// <summary>
+        /// rotation speed of guide bot
+        /// </summary>
         public float moveSpeed;
-        //rotation speed of guide bot
+        /// <summary>
+        /// rotation speed of guide bot
+        /// </summary>
         public float rotSpeed;
-        //distance from next target to assume guide bot is close enough.
-        public float distanceFromTarget;
-        //defines if guide bot can move to next point.
-        public bool canMove;
-        //defines if guide bot can look at player camera.
-        public bool canLook;
-
-        private bool isReached1stNode;
-        private Vector3 closestTarget;
+        /// <summary>
+        /// rotation speed of guide bot
+        /// </summary>
+        private List<Vector3> waypointList = new List<Vector3>();
+        /// <summary>
+        /// defines if guide bot can move to next point.
+        /// </summary>
+        private bool canMove;
+        /// <summary>
+        /// defines if guide bot can look at player camera.
+        /// </summary>
+        private bool canLook;
+        /// <summary>
+        /// bool flags when first node on the list has been reached, so we can start to move to other nodes from that.
+        /// </summary>
+        private bool hasReachedFirstNode;
+        /// <summary>
+        /// first node position
+        /// </summary>
+        private Vector3 firstNode;
+        /// <summary>
+        /// keeps track of current index value.
+        /// </summary>
         private int currIndex = 0;
+        /// <summary>
+        /// this is the speed + time.delta of which the robot will move.
+        /// </summary>
         private float step;
-
+        /// <summary>
+        /// threshold distance limit to move to the next coordinate point.
+        /// </summary>
+        private const float THRESHOLD = 0.5f;
         public delegate void OnFinishedNav( );
-        
         public static event OnFinishedNav OnFinishedNavigation;
+
+
         private void Start()
         {
             step = moveSpeed * Time.deltaTime;
         }
 
-        void Update()
+        private void Update()
         {
             if (canLook)
             {
                 RotateToTarget(Camera.main.transform.position);
             }
 
-            if (canMove == true)
+            if (canMove)
             {
                 canLook = false;
-                FindAndMoveToFirstTarget(closestTarget);
+                FindAndMoveToFirstTarget(firstNode);
             }
-        }
-
-        Vector3 FindClosestTarget()
-        {
-            Vector3 position = transform.position;
-            return waypointList.OrderBy(o => (o - position).sqrMagnitude).FirstOrDefault();
         }
 
         /// <summary>
@@ -60,13 +80,12 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <param name="target"></param>
         public void FindAndMoveToFirstTarget(Vector3 target)
         {
-
-            if (!isReached1stNode)
+            if (!hasReachedFirstNode)
             {
                 RotateToTarget(target);
-                if (Vector3.Distance(transform.position, target) <= 0.5f)
+                if (Vector3.Distance(transform.position, target) <= THRESHOLD)
                 {
-                    isReached1stNode = true;
+                    hasReachedFirstNode = true;
                 }
                 else
                 {
@@ -90,7 +109,7 @@ namespace Neogoma.Stardust.Demo.Navigator
             {
                 RotateToTarget(waypoints[currIndex]);
 
-                if (Vector3.Distance(transform.position, waypoints[currIndex]) <= 0.5f)
+                if (Vector3.Distance(transform.position, waypoints[currIndex]) <= THRESHOLD)
                 {
                     currIndex++;
                 }
@@ -130,7 +149,7 @@ namespace Neogoma.Stardust.Demo.Navigator
             waypointList = m_allNavPoints;
             waypointList.Reverse();
             canMove = true;
-            closestTarget = waypointList[0];
+            firstNode = waypointList[0];
         }
     }
 }
