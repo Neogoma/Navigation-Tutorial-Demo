@@ -5,15 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/SelectionScene.unity
-    guid: 867dc1d86c340f148a717c69e33e9285
-  - enabled: 0
-    path: Assets/Scenes/Mapper.unity
-    guid: 7c3a75e9c8f26434fb40b01daf268ba0
-  - enabled: 0
-    path: Assets/Scenes/Updater.unity
-    guid: a222c7e940df1a84bb83cf748ddd4050
   - enabled: 1
     path: Assets/Scenes/Relocate-Update.unity
     guid: 555d7e2dd3caa874e815650ac9df8ef4
