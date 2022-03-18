@@ -22,15 +22,10 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         private float angle;
         /// <summary>
-        /// target position to point at.
+        /// Constant for angle in degrees.
         /// </summary>
-        private Vector3 target;
-
         private const float ANGLE_DEGREES = Mathf.Rad2Deg - 90;
-        private void Start()
-        {
-            NavigationDemo.OnSetTarget += InitCompass;
-        }
+        
         private void Update()
         {
             if(canRotate)
@@ -38,19 +33,12 @@ namespace Neogoma.Stardust.Demo.Navigator
                 rt.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
         }
+
         /// <summary>
-        /// Invoked when target is set. Also starts Compass.
+        /// Called when the Compass button is pressed. Gets the rect transform component and begins arrow rotation.
         /// </summary>
-        /// <param name="targetPosition"> target position</param>
-        private void InitCompass(Vector3 targetPosition)
-        {
-            target = targetPosition;
-            Init();
-        }
-        /// <summary>
-        /// Gets the rect transform component and begins arrow rotation.
-        /// </summary>
-        public void Init()
+        /// <param name="target">Vector3 position for the selected target</param>
+        public void Init(Vector3 target)
         {
             rt = GetComponent<RectTransform>();
             Vector3 objScreenPos = Camera.main.WorldToScreenPoint(target);
@@ -58,10 +46,12 @@ namespace Neogoma.Stardust.Demo.Navigator
             angle = Mathf.Atan2(dir.y, dir.x) * ANGLE_DEGREES;
             canRotate = true;
         }
+        /// <summary>
+        /// called when the object is disabled.
+        /// </summary>
         private void OnDisable()
         {
             canRotate = false;
-            NavigationDemo.OnSetTarget -= InitCompass;
         }
     }
 }

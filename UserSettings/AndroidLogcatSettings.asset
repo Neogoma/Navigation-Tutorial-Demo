@@ -2,8 +2,8 @@
     "m_SelectedDeviceId": "8AMY0N4QR",
     "m_SelectedPackage": {
         "deviceId": "8AMY0N4QR",
-        "name": "com.neogoma.stardustsdksample",
-        "processId": 15686,
+        "name": "com.neogoma.stardustnavigationsample",
+        "processId": 12856,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -102,6 +102,12 @@
             "deviceId": "8AMY0N4QR",
             "name": "com.neogoma.stardustsdksample",
             "processId": 15686,
+            "exited": false
+        },
+        {
+            "deviceId": "8AMY0N4QR",
+            "name": "com.neogoma.stardustnavigationsample",
+            "processId": 12856,
             "exited": false
         }
     ],

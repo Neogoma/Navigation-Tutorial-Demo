@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.Events;
 
 namespace Neogoma.Stardust.Demo.Navigator
@@ -51,10 +50,10 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// threshold distance limit to move to the next coordinate point.
         /// </summary>
         private const float THRESHOLD = 0.5f;
-        public delegate void OnFinishedNav( );
-        public static event OnFinishedNav OnFinishedNavigation;
-
-
+        /// <summary>
+        /// Event when the target is reached
+        /// </summary>
+        public UnityEvent targetReached = new UnityEvent();
         private void Start()
         {
             step = moveSpeed * Time.deltaTime;
@@ -102,7 +101,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Moves the bot to the next target on the waypoint list until target reached
         /// </summary>
-        /// <param name="waypoints"> lis of point positions to move through to get to the target.</param>
+        /// <param name="waypoints"> List of point positions to move through to get to the target.</param>
         public void MoveToNextTarget(List<Vector3> waypoints)
         {
             if (currIndex <= waypoints.Count - 1)
@@ -123,9 +122,7 @@ namespace Neogoma.Stardust.Demo.Navigator
             {
                 canMove = false;
                 canLook = true;
-                 
-                if (OnFinishedNavigation != null)
-                    OnFinishedNavigation();
+                targetReached.Invoke();
             }
         }
 
@@ -143,13 +140,20 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Init method takes in navigation points for bot to use.
         /// </summary>
-        /// <param name="m_allNavPoints">list of vector3 points of the fastest path to the selected target.</param>
-        public void StartNavigation(List<Vector3> m_allNavPoints)
+        public void StartNavigation()
         {
-            waypointList = m_allNavPoints;
             waypointList.Reverse();
             canMove = true;
             firstNode = waypointList[0];
+        }
+
+        /// <summary>
+        /// public setter of the waypoint list from custom path renderer.
+        /// </summary>
+        /// <param name="waypointList"></param>
+        public void SetWaypointsList(List<Vector3> waypointList)
+        {
+            this.waypointList = waypointList;
         }
     }
 }
