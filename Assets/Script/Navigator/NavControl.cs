@@ -44,7 +44,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Distance in front of the camera the guide bot will spawn.
         /// </summary>
-        public float distancefromCamera = 1.1f;
+        public const float DISTANCEFROMCAMERA = 1.1f;
         /// <summary>
         /// Camera transform reference.
         /// </summary>
@@ -52,11 +52,11 @@ namespace Neogoma.Stardust.Demo.Navigator
 
         public delegate void PrefabAction(GameObject pathPrefab);
         public static event PrefabAction OnSetPrefab;
-
         
         private GuideBotController botController;
-        
-       
+
+        public MyEvent myEvent;
+
         private void Start()
         {
             botController = robot.GetComponent<GuideBotController>();
@@ -65,6 +65,8 @@ namespace Neogoma.Stardust.Demo.Navigator
             //subscribe to event when display path is called positions added to the list we get that info.
             CustomPathRenderer.OnSetListOfPositions += SetListOfPoints; 
             GuideBotController.OnFinishedNavigation += ShowFinishedPanel;
+            if (myEvent == null)
+                myEvent = new MyEvent();
 
             if (pathPrefab != null)
             {
@@ -85,7 +87,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         {
             worldSpacePanel.gameObject.SetActive(true);
             robot.gameObject.SetActive(true);
-            robot.transform.position = cameraPosition.position + cameraPosition.forward * distancefromCamera;
+            robot.transform.position = cameraPosition.position + cameraPosition.forward * DISTANCEFROMCAMERA;
             Vector3 targetPostition = new Vector3(cameraPosition.position.x, transform.position.y, cameraPosition.position.z) - transform.position;
             robot.transform.LookAt(targetPostition);
         }
@@ -113,4 +115,11 @@ namespace Neogoma.Stardust.Demo.Navigator
         }
  
     }
+    
+    public class MyEvent : UnityEvent<NavControl>
+    {
+
+    }
 }
+
+

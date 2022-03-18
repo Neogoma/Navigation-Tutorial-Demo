@@ -65,28 +65,28 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Subdivides path into more coordinate points using a custom algorithm getting the middle point between the current and the next coordinate point.
         /// </summary>
-        /// <param name="_allNavigationsPoints">Calculated List of Navigation points to raeach the selected target</param>
-        private void ExtendPath(List<IOctreeCoordnateObject> _allNavigationsPoints)
+        /// <param name="allNavigationsPointsList">Calculated List of Navigation points to raeach the selected target</param>
+        private void ExtendPath(List<IOctreeCoordnateObject> allNavigationsPointsList)
         {
             // add more midpoints to subdivide the path even further
             Vector3 midpoint; 
 
-            for (int j = 0; j < _allNavigationsPoints.Count; j++)
+            for (int j = 0; j < allNavigationsPointsList.Count; j++)
             {
                 // if not the last point
-                if (j < _allNavigationsPoints.Count - 1) 
+                if (j < allNavigationsPointsList.Count - 1) 
                 {
                     //mid point is the distance between the current point vector3 and the next divided by 2, getting the coordinate right in the middle of those 2 points
-                    midpoint = (_allNavigationsPoints[j].GetCoordnates() + _allNavigationsPoints[j + 1].GetCoordnates()) / 2f;
+                    midpoint = (allNavigationsPointsList[j].GetCoordnates() + allNavigationsPointsList[j + 1].GetCoordnates()) / 2f;
                     // add the current point
-                    positionList.Add(_allNavigationsPoints[j].GetCoordnates());
+                    positionList.Add(allNavigationsPointsList[j].GetCoordnates());
                     //add the resulting middle point coord.
                     positionList.Add(midpoint); 
                 }
-                else if (j == _allNavigationsPoints.Count - 1)
+                else if (j == allNavigationsPointsList.Count - 1)
                 {
                     //on the last point just add it to the list.
-                    positionList.Add(_allNavigationsPoints[j].GetCoordnates()); //on the last point just add it to the list.
+                    positionList.Add(allNavigationsPointsList[j].GetCoordnates()); //on the last point just add it to the list.
                 }
             }
             return;
@@ -127,7 +127,7 @@ namespace Neogoma.Stardust.Demo.Navigator
                 }
                 goInstance = GameObject.Instantiate(pathPrefab, positionList[i], lookRotation);
                 // path is displayed at camera height, so we want to instantiate a bit lower at a ground level.
-                goInstance.transform.position = new Vector3(positionList[i].x, - 1, positionList[i].z);
+                goInstance.transform.position = new Vector3(positionList[i].x, -1, positionList[i].z);
                 //add to the new created path list.
                 createdPathObjects.Add(goInstance.gameObject);
             }
@@ -136,19 +136,19 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Invoked when target is set on NavigationDemo.
         /// </summary>
-        /// <param name="_target"> navigation target position</param>
-        private void SetTarget(Vector3 _target)
+        /// <param name="targetToSet"> navigation target position</param>
+        private void SetTarget(Vector3 targetToSet)
         {
-            target = _target;
+            target = targetToSet;
         }
 
         /// <summary>
         /// Invoked when prefab set on NavControl.
         /// </summary>
-        /// <param name="_pathPrefab"> prefab object to display on path.</param>
-        private void SetPrefab(GameObject _pathPrefab)
+        /// <param name="pathPrefabToSet"> prefab object to display on path.</param>
+        private void SetPrefab(GameObject pathPrefabToSet)
         {
-            pathPrefab = _pathPrefab;
+            pathPrefab = pathPrefabToSet;
         }
     }
 }

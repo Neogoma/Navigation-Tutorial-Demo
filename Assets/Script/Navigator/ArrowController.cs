@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Neogoma.Stardust.Demo.Navigator
 {
     /// <summary>
@@ -27,6 +26,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         private Vector3 target;
 
+        private const float ANGLE_DEGREES = Mathf.Rad2Deg - 90;
         private void Start()
         {
             NavigationDemo.OnSetTarget += InitCompass;
@@ -38,17 +38,15 @@ namespace Neogoma.Stardust.Demo.Navigator
                 rt.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             }
         }
-
         /// <summary>
         /// Invoked when target is set. Also starts Compass.
         /// </summary>
-        /// <param name="_target"> target position</param>
-        private void InitCompass(Vector3 _target)
+        /// <param name="targetPosition"> target position</param>
+        private void InitCompass(Vector3 targetPosition)
         {
-            target = _target;
+            target = targetPosition;
             Init();
         }
-
         /// <summary>
         /// Gets the rect transform component and begins arrow rotation.
         /// </summary>
@@ -57,10 +55,9 @@ namespace Neogoma.Stardust.Demo.Navigator
             rt = GetComponent<RectTransform>();
             Vector3 objScreenPos = Camera.main.WorldToScreenPoint(target);
             Vector3 dir = (objScreenPos - rt.position).normalized;
-            angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+            angle = Mathf.Atan2(dir.y, dir.x) * ANGLE_DEGREES;
             canRotate = true;
         }
-
         private void OnDisable()
         {
             canRotate = false;
