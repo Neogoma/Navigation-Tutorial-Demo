@@ -14,30 +14,32 @@ namespace Neogoma.Stardust.Demo.Navigator
     public class RelocationDemo:MonoBehaviour
     {
         /// <summary>
-        /// Text used to show the download picture status
+        /// Text used to show the download picture status.
         /// </summary>
         public Text downloadingData;
-
         /// <summary>
-        /// Text used to show the results of the server matching
+        /// Text used to show the results of the server matching.
         /// </summary>
         public Text matchingResult;
 
         /// <summary>
-        /// Dropdown to select the map
+        /// Dropdown to select the map.
         /// </summary>
         public Dropdown mapSelectionDropDown;
 
         /// <summary>
-        /// Name of the selected session
+        /// Name of the selected session.
         /// </summary>
         public Text sessionName;
 
         /// <summary>
-        /// Button to locate the user
+        /// Button to locate the user.
         /// </summary>
         public Button locateMeButton;
 
+        /// <summary>
+        /// Event triggers when we show relocation result.
+        /// </summary>
         public UnityEvent showResultsEvent = new UnityEvent();
         
         private SessionController sessionController;

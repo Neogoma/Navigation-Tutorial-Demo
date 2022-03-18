@@ -73,7 +73,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Subdivides path into more coordinate points using a custom algorithm getting the middle point between the current and the next coordinate point.
         /// </summary>
-        /// <param name="allNavigationsPointsList">Calculated List of Navigation points to raeach the selected target</param>
+        /// <param name="allNavigationsPointsList">Calculated List of Navigation points to raeach the selected target.</param>
         private void ExtendPath(List<IOctreeCoordinateObject> allNavigationsPointsList)
         {
             // add more midpoints to subdivide the path even further
@@ -84,9 +84,9 @@ namespace Neogoma.Stardust.Demo.Navigator
                 // if not the last point
                 if (j < allNavigationsPointsList.Count - 1) 
                 {
-                    //mid point is the distance between the current point vector3 and the next divided by 2, getting the coordinate right in the middle of those 2 points
+                    //mid point is the distance between the current point vector3 and the next divided by 2, getting the coordinate right in the middle of those 2 points.
                     midpoint = (allNavigationsPointsList[j].GetCoordinates() + allNavigationsPointsList[j + 1].GetCoordinates()) / 2f;
-                    // add the current point
+                    // add the current point.
                     positionList.Add(allNavigationsPointsList[j].GetCoordinates());
                     //add the resulting middle point coord.
                     positionList.Add(midpoint); 
@@ -101,7 +101,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         }
 
         /// <summary>
-        /// Begins Looping through the new and more complex list of coordinate points
+        /// Begins Looping through the new and more complex list of coordinate points.
         /// Gets direction and position of all points to Instantiate the desired path prefab correctly.
         /// </summary>
         private void InitPath()
@@ -115,16 +115,16 @@ namespace Neogoma.Stardust.Demo.Navigator
                 //getting the correct direction to rotate each navigation prefab correctly to the next point.
                 if (i == positionList.Count - 1) 
                 {
-                    //last point just face the target
+                    //last point just face the target.
                     targetDirection = target - positionList[i]; 
                 }
                 else
                 {
-                    //face the next point on the list
+                    //face the next point on the list.
                     targetDirection = positionList[i + 1] - positionList[i]; 
                 }
 
-                //store rotation
+                //store rotation.
                 lookRotation = Quaternion.LookRotation(targetDirection); 
 
                 //force objects to point in the right direction if they point backwards in regards to next point on the list.
@@ -143,10 +143,10 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Invoked when target is set on NavigationDemo.
         /// </summary>
-        /// <param name="targetToSet"> navigation target position</param>
-        public void SetTarget(Vector3 targetToSet)
+        /// <param name="target"> navigation target position.</param>
+        public void SetTarget(Vector3 target)
         {
-            target = targetToSet;
+            this.target = target;
         }
 
     }

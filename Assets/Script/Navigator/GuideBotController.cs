@@ -11,15 +11,19 @@ namespace Neogoma.Stardust.Demo.Navigator
     public class GuideBotController : MonoBehaviour
     {
         /// <summary>
-        /// rotation speed of guide bot
+        /// rotation speed of guide bot.
         /// </summary>
         public float moveSpeed;
         /// <summary>
-        /// rotation speed of guide bot
+        /// rotation speed of guide bot.
         /// </summary>
         public float rotSpeed;
         /// <summary>
-        /// rotation speed of guide bot
+        /// Event when the target is reached.
+        /// </summary>
+        public UnityEvent targetReached = new UnityEvent();
+        /// <summary>
+        /// rotation speed of guide bot.
         /// </summary>
         private List<Vector3> waypointList = new List<Vector3>();
         /// <summary>
@@ -35,7 +39,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         private bool hasReachedFirstNode;
         /// <summary>
-        /// first node position
+        /// first node position.
         /// </summary>
         private Vector3 firstNode;
         /// <summary>
@@ -50,10 +54,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// threshold distance limit to move to the next coordinate point.
         /// </summary>
         private const float THRESHOLD = 0.5f;
-        /// <summary>
-        /// Event when the target is reached
-        /// </summary>
-        public UnityEvent targetReached = new UnityEvent();
+        
         private void Start()
         {
             step = moveSpeed * Time.deltaTime;
@@ -76,7 +77,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Move from spawned position to the nearest point to start navigating.
         /// </summary>
-        /// <param name="target"></param>
+        /// <param name="target">Target position to move to.</param>
         public void FindAndMoveToFirstTarget(Vector3 target)
         {
             if (!hasReachedFirstNode)
@@ -88,8 +89,8 @@ namespace Neogoma.Stardust.Demo.Navigator
                 }
                 else
                 {
-                    Vector3 actualdirection = new Vector3(target.x, transform.position.y, target.z);
-                    transform.position = Vector3.MoveTowards(transform.position, actualdirection, step);
+                    Vector3 actualDirection = new Vector3(target.x, transform.position.y, target.z);
+                    transform.position = Vector3.MoveTowards(transform.position, actualDirection, step);
                 }
             }
             else
@@ -99,7 +100,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         }
 
         /// <summary>
-        /// Moves the bot to the next target on the waypoint list until target reached
+        /// Moves the bot to the next target on the waypoint list until target reached.
         /// </summary>
         /// <param name="waypoints"> List of point positions to move through to get to the target.</param>
         public void MoveToNextTarget(List<Vector3> waypoints)
@@ -114,8 +115,8 @@ namespace Neogoma.Stardust.Demo.Navigator
                 }
                 else
                 {
-                    Vector3 actualdirection = new Vector3(waypoints[currIndex].x, transform.position.y, waypoints[currIndex].z);
-                    transform.position = Vector3.MoveTowards(transform.position, actualdirection, step);
+                    Vector3 actualDirection = new Vector3(waypoints[currIndex].x, transform.position.y, waypoints[currIndex].z);
+                    transform.position = Vector3.MoveTowards(transform.position, actualDirection, step);
                 }
             }
             else
@@ -129,7 +130,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Rotates prefab object to face the target parameter only on 1 axis.
         /// </summary>
-        /// <param name="target"> target position </param>
+        /// <param name="target">Target position.</param>
         private void RotateToTarget(Vector3 target)
         {
             Vector3 targetPostition = new Vector3(target.x, transform.position.y, target.z) - transform.position;
@@ -150,7 +151,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// public setter of the waypoint list from custom path renderer.
         /// </summary>
-        /// <param name="waypointList"></param>
+        /// <param name="waypointList">List of waypoints.</param>
         public void SetWaypointsList(List<Vector3> waypointList)
         {
             this.waypointList = waypointList;

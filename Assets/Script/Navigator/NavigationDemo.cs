@@ -12,20 +12,20 @@ using UnityEngine.UI;
 namespace Neogoma.Stardust.Demo.Navigator
 {
     /// <summary>
-    /// Demo for a navigation use case
+    /// Demo for a navigation use case.
     /// </summary>
     public class NavigationDemo:MonoBehaviour
     {
         /// <summary>
-        /// Dropdown to select the targets
+        /// Dropdown to select the targets.
         /// </summary>
         public Dropdown targetSelectionDropDown;
         /// <summary>
-        /// Prefab to display on the navigation place
+        /// Prefab to display on the navigation place.
         /// </summary>
         public GameObject locationPrefab;
         /// <summary>
-        /// The target reached hint
+        /// The target reached hint.
         /// </summary>
         public GameObject targetReachedHint;
         /// <summary>
@@ -35,7 +35,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// button to enable navigation and guide bot.
         /// </summary>
-        public GameObject NavigationButton;
+        public GameObject navigationButton;
         /// <summary>
         /// prefab to instantiate and show the navigation.
         /// </summary>
@@ -49,19 +49,19 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         public ArrowController arrowController;
         /// <summary>
-        /// Target List
+        /// Target List.
         /// </summary>
         public List<ITarget> targets;
         /// <summary>
-        /// location prefab
+        /// location prefab.
         /// </summary>
         private GameObject locationInstance;
         /// <summary>
-        /// path Finding Manager, responsible for calculating the path to target
+        /// path Finding Manager, responsible for calculating the path to target.
         /// </summary>
         private PathFindingManager pathfindingManager;
         /// <summary>
-        /// index of selected target
+        /// index of selected target.
         /// </summary>
         private int selectedTargetIndex;
         /// <summary>
@@ -73,7 +73,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         private Transform mainCameraTransform;
         /// <summary>
-        /// Custom Path Renderer: overrides the way the path is displayed
+        /// Custom Path Renderer: overrides the way the path is displayed.
         /// </summary>
         private CustomPathRenderer pathRenderer;
 
@@ -92,11 +92,11 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Called when position found event is triggered.
         /// </summary>
-        /// <param name="arg0">Relocation results</param>
-        /// <param name="arg1"> Coordinate System</param>
+        /// <param name="arg0">Relocation results.</param>
+        /// <param name="arg1"> Coordinate System.</param>
         private void PositionFound(RelocationResults arg0, CoordinateSystem arg1)
         {
-            NavigationButton.gameObject.SetActive(true);
+            navigationButton.gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         }
 
         /// <summary>
-        /// Will go to the target selected in the dropdown
+        /// Will go to the target selected in the dropdown.
         /// </summary>
         public void GoToSelectedTarget()
         {
@@ -140,9 +140,9 @@ namespace Neogoma.Stardust.Demo.Navigator
         }
 
         /// <summary>
-        /// Adds targets to the dropdown selection
+        /// Adds targets to the dropdown selection.
         /// </summary>
-        /// <param name="allTargets"></param>
+        /// <param name="allTargets">List of targets.</param>
         private void PathFindingReady(List<ITarget> allTargets)
         {
             targets = allTargets;
@@ -162,7 +162,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Called when target selected.
         /// </summary>
-        /// <param name="val"></param>
+        /// <param name="val">index of target selected</param>
         private void OnTargetSelected(int val)
         {
             this.selectedTargetIndex = val;

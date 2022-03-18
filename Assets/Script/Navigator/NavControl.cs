@@ -20,7 +20,6 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// guide bot controller.
         /// </summary>
         public GameObject robot;
-       
         /// <summary>
         /// panel that holds Dialogue and Target option.
         /// </summary>
@@ -53,15 +52,15 @@ namespace Neogoma.Stardust.Demo.Navigator
         }
 
         /// <summary>
-        /// Initializes navigation for navigation bot
+        ///Initializes navigation for navigation bot.
         /// </summary>
         public void InitBot()
         {
             worldSpacePanel.gameObject.SetActive(true);
             robot.gameObject.SetActive(true);
             robot.transform.position = cameraPosition.position + cameraPosition.forward * DISTANCE_FROM_CAMERA;
-            Vector3 targetPostition = new Vector3(cameraPosition.position.x, transform.position.y, cameraPosition.position.z) - transform.position;
-            robot.transform.LookAt(targetPostition);
+            Vector3 targetPosition = new Vector3(cameraPosition.position.x, transform.position.y, cameraPosition.position.z) - transform.position;
+            robot.transform.LookAt(targetPosition);
         }
 
         /// <summary>

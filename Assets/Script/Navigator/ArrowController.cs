@@ -10,22 +10,26 @@ namespace Neogoma.Stardust.Demo.Navigator
     public class ArrowController : MonoBehaviour
     {
         /// <summary>
-        /// this rect transform
+        /// this rect transform.
         /// </summary>
         private RectTransform rt;
         /// <summary>
-        /// determines if compass can update its angle and point to the target;
+        /// determines if compass can update its angle and point to the target.
         /// </summary>
         private bool canRotate = false;
         /// <summary>
-        /// angle to rotate compass
+        /// angle to rotate compass.
         /// </summary>
         private float angle;
         /// <summary>
         /// Constant for angle in degrees.
         /// </summary>
         private const float ANGLE_DEGREES = Mathf.Rad2Deg - 90;
-        
+
+        private void Start()
+        {
+            rt = GetComponent<RectTransform>();
+        }
         private void Update()
         {
             if(canRotate)
@@ -37,10 +41,9 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Called when the Compass button is pressed. Gets the rect transform component and begins arrow rotation.
         /// </summary>
-        /// <param name="target">Vector3 position for the selected target</param>
+        /// <param name="target">Vector3 position for the selected target.</param>
         public void Init(Vector3 target)
         {
-            rt = GetComponent<RectTransform>();
             Vector3 objScreenPos = Camera.main.WorldToScreenPoint(target);
             Vector3 dir = (objScreenPos - rt.position).normalized;
             angle = Mathf.Atan2(dir.y, dir.x) * ANGLE_DEGREES;
