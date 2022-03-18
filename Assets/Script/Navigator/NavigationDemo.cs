@@ -16,7 +16,6 @@ namespace Neogoma.Stardust.Demo.Navigator
     /// </summary>
     public class NavigationDemo:MonoBehaviour
     {
-
         /// <summary>
         /// Dropdown to select the targets
         /// </summary>
@@ -90,11 +89,19 @@ namespace Neogoma.Stardust.Demo.Navigator
             PathFindingManager.Instance.SetPathRenderer(pathRenderer);
         }
 
+        /// <summary>
+        /// Called when position found event is triggered.
+        /// </summary>
+        /// <param name="arg0">Relocation results</param>
+        /// <param name="arg1"> Coordinate System</param>
         private void PositionFound(RelocationResults arg0, CoordinateSystem arg1)
         {
             NavigationButton.gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Enables the target selection dropdown.
+        /// </summary>
         public void EnableTargetSelection()
         {
             targetSelectionDropDown.gameObject.SetActive(targets.Count > 0);
@@ -152,6 +159,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             targetSelectionDropDown.AddOptions(allTargetNames);
         }
 
+        /// <summary>
+        /// Called when target selected.
+        /// </summary>
+        /// <param name="val"></param>
         private void OnTargetSelected(int val)
         {
             this.selectedTargetIndex = val;
