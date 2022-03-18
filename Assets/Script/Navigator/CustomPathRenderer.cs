@@ -21,22 +21,18 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// list of new coordinate points after subdividing the path
         /// </summary>
         private List<Vector3> positionList = new List<Vector3>();
-        
         /// <summary>
         /// target position
         /// </summary>
         private Vector3 target;
-
         /// <summary>
         /// prefab Object to display on the path. 
         /// </summary>
         private GameObject pathPrefab;
-
         /// <summary>
         /// Called when new list of points is calculated.
         /// </summary>
         public UnityEvent<List<Vector3>> OnCalculatedPointList = new UnityEvent<List<Vector3>>();
-
         /// <summary>
         /// Constructor
         /// </summary>
