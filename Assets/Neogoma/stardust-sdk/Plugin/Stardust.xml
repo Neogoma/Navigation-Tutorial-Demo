@@ -44,11 +44,6 @@
             Event triggered in case of emergency cut
             </summary>
         </member>
-        <member name="P:com.Neogoma.Stardust.API.Mapping.AbstractMapDataUploader.Name">
-            <summary>
-            Returns the session Name
-            </summary>
-        </member>
         <member name="M:com.Neogoma.Stardust.API.Mapping.AbstractMapDataUploader.Awake">
             <inheritdoc/>
         </member>
@@ -296,7 +291,6 @@
             Create target with name at designated coordnates. COORDNATES SHOULD BE IN THE MAP SPACE
             </summary>
             <param name="allTargets">Position of the target in MAP SPACE</param>
-            <param name="name">Name of the target</param>
         </member>
         <member name="M:com.Neogoma.Stardust.API.Mapping.MapDataUploader.GenerateMap(System.String)">
             <summary>
@@ -768,8 +762,6 @@
             <param name="scale">Scale of the object on XYZ axis</param>
             <param name="bundle">Bundle used by the new instance</param>
             <param name="session">Session to add the object to</param>
-            <param name="parent">Parent of the newly created object (can be null)</param>
-            <param name="space">In what <see cref="T:com.Neogoma.Stardust.API.Persistence.ObjectController.CreationSpace"/> are you giving the data</param>
         </member>
         <member name="M:com.Neogoma.Stardust.API.Persistence.ObjectController.CreateViewAndSaveModel(UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,com.Neogoma.Stardust.Datamodel.Session,com.Neogoma.Stardust.Datamodel.Bundle,UnityEngine.Transform)">
             <summary>
@@ -894,9 +886,14 @@
             Event triggered when the position has been found
             </summary>
         </member>
-        <member name="F:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.onPositionNotFound">
+        <member name="F:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.onLocationFound">
             <summary>
-            Event triggered when the position has not been found
+            Event triggered when the position has been located
+            </summary>
+        </member>
+        <member name="F:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.onLocationNotFound">
+            <summary>
+            Event triggered when the position has not been located
             </summary>
         </member>
         <member name="F:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.onMaxRequestReached">
@@ -997,11 +994,6 @@
         <member name="T:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.PositionFoundEvent">
             <summary>
             Unity event triggered when position was found
-            </summary>
-        </member>
-        <member name="T:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.NoPositionFoundEvent">
-            <summary>
-            Unity event triggered when position was not found
             </summary>
         </member>
         <member name="T:com.Neogoma.Stardust.API.Relocation.MapRelocationManager.StartDownloadMapEvent">
@@ -1375,7 +1367,7 @@
             Interface to define how to render a path after calculating the navigation
             </summary>
         </member>
-        <member name="M:com.Neogoma.Stardust.Navigation.IPathRenderer.DisplayPath(System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordnateObject})">
+        <member name="M:com.Neogoma.Stardust.Navigation.IPathRenderer.DisplayPath(System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordinateObject})">
             <summary>
             Displays the path
             </summary>
@@ -1408,7 +1400,7 @@
         <member name="M:com.Neogoma.Stardust.Navigation.Graph.GameObjectNode.GetColor">
             <inheritdoc/>
         </member>
-        <member name="M:com.Neogoma.Stardust.Navigation.Graph.GameObjectNode.GetCoordnates">
+        <member name="M:com.Neogoma.Stardust.Navigation.Graph.GameObjectNode.GetCoordinates">
             <inheritdoc/>
         </member>
         <member name="M:com.Neogoma.Stardust.Navigation.Graph.GameObjectNode.GetRotation">
@@ -1481,7 +1473,7 @@
             <inheritdoc/>
             </summary>
         </member>
-        <member name="M:com.Neogoma.Stardust.Navigation.Rendering.PathRenderer.DisplayPath(System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordnateObject})">
+        <member name="M:com.Neogoma.Stardust.Navigation.Rendering.PathRenderer.DisplayPath(System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordinateObject})">
             <summary>
             <inheritdoc/>
             </summary>
@@ -1635,7 +1627,7 @@
         <member name="M:com.Neogoma.Stardust.Graph.BasicGraphNode.GetColor">
             <inheritdoc/>
         </member>
-        <member name="M:com.Neogoma.Stardust.Graph.BasicGraphNode.GetCoordnates">
+        <member name="M:com.Neogoma.Stardust.Graph.BasicGraphNode.GetCoordinates">
             <inheritdoc/>
         </member>
         <member name="M:com.Neogoma.Stardust.Graph.BasicGraphNode.GetRotation">
@@ -1740,7 +1732,7 @@
             </summary>
             <param name="mat"></param>
         </member>
-        <member name="M:com.Neogoma.Stardust.DataRendering.PCLDisplayer.CreatePointCloudMeshNoOctree(System.String,System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordnateObject})">
+        <member name="M:com.Neogoma.Stardust.DataRendering.PCLDisplayer.CreatePointCloudMeshNoOctree(System.String,System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordinateObject})">
             <summary>
             Generates a pointcloudmesh
             </summary>
@@ -1748,7 +1740,7 @@
             <param name="points">List of Points</param>
             <returns>The gameobject that represents the resulting point cloud</returns>
         </member>
-        <member name="M:com.Neogoma.Stardust.DataRendering.PCLDisplayer.CreatePointCloudMesh(System.String,System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordnateObject},System.Single)">
+        <member name="M:com.Neogoma.Stardust.DataRendering.PCLDisplayer.CreatePointCloudMesh(System.String,System.Collections.Generic.List{com.Neogoma.Octree.IOctreeCoordinateObject},System.Single)">
             <summary>
             Generates a point cloud mesh with octree using a list of points
             </summary>
@@ -1757,7 +1749,7 @@
             <param name="nodeSize">Minimum node size</param>
             <returns></returns>
         </member>
-        <member name="M:com.Neogoma.Stardust.DataRendering.PCLDisplayer.CreatePointCloudMesh(System.String,com.Neogoma.Octree.PointOctree{com.Neogoma.Octree.IOctreeCoordnateObject})">
+        <member name="M:com.Neogoma.Stardust.DataRendering.PCLDisplayer.CreatePointCloudMesh(System.String,com.Neogoma.Octree.PointOctree{com.Neogoma.Octree.IOctreeCoordinateObject})">
             <summary>
             Generates a point cloud mesh with octree using an octree of points
             </summary>
@@ -1781,7 +1773,7 @@
             <param name="g">G color</param>
             <param name="b">B color</param>
         </member>
-        <member name="M:com.Neogoma.Stardust.DataRendering.ConvertedPointdata.GetCoordnates">
+        <member name="M:com.Neogoma.Stardust.DataRendering.ConvertedPointdata.GetCoordinates">
             <inheritdoc/>
         </member>
         <member name="M:com.Neogoma.Stardust.DataRendering.ConvertedPointdata.GetColor">

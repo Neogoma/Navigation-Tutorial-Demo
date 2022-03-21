@@ -12,37 +12,70 @@ using UnityEngine.UI;
 namespace Neogoma.Stardust.Demo.Navigator
 {
     /// <summary>
-    /// Demo for a navigation use case
+    /// Demo for a navigation use case.
     /// </summary>
     public class NavigationDemo:MonoBehaviour
     {
-
         /// <summary>
-        /// Dropdown to select the targets
+        /// Dropdown to select the targets.
         /// </summary>
         public Dropdown targetSelectionDropDown;
-
         /// <summary>
-        /// Prefab to display on the navigation place
+        /// Prefab to display on the navigation place.
         /// </summary>
         public GameObject locationPrefab;
-
         /// <summary>
-        /// The target reached hint
+        /// The target reached hint.
         /// </summary>
         public GameObject targetReachedHint;
-
+        /// <summary>
+        /// Event called when target reached.
+        /// </summary>
         public UnityEvent targetReached = new UnityEvent();
-        //button to enable navigation and guide bot.
-        public GameObject NavigationButton;
-
-
-        private GameObject locationInstance;
-        private PathFindingManager pathfindingManager;
-        private int selectedTargetIndex;
-        private Dictionary<int, ITarget> indexToTarget = new Dictionary<int, ITarget>();
-        private Transform mainCameraTransform;
+        /// <summary>
+        /// button to enable navigation and guide bot.
+        /// </summary>
+        public GameObject navigationButton;
+        /// <summary>
+        /// prefab to instantiate and show the navigation.
+        /// </summary>
+        public GameObject pathPrefab;
+        /// <summary>
+        /// GuideBot controller component.
+        /// </summary>
+        public GuideBotController guideBotController;
+        /// <summary>
+        /// Arrow controller component.
+        /// </summary>
+        public ArrowController arrowController;
+        /// <summary>
+        /// Target List.
+        /// </summary>
         public List<ITarget> targets;
+        /// <summary>
+        /// location prefab.
+        /// </summary>
+        private GameObject locationInstance;
+        /// <summary>
+        /// path Finding Manager, responsible for calculating the path to target.
+        /// </summary>
+        private PathFindingManager pathfindingManager;
+        /// <summary>
+        /// index of selected target.
+        /// </summary>
+        private int selectedTargetIndex;
+        /// <summary>
+        /// Collection of targets and matching index.
+        /// </summary>
+        private Dictionary<int, ITarget> indexToTarget = new Dictionary<int, ITarget>();
+        /// <summary>
+        /// Main Camera transform.
+        /// </summary>
+        private Transform mainCameraTransform;
+        /// <summary>
+        /// Custom Path Renderer: overrides the way the path is displayed.
+        /// </summary>
+        private CustomPathRenderer pathRenderer;
 
         private void Start()
         {
@@ -51,21 +84,31 @@ namespace Neogoma.Stardust.Demo.Navigator
             pathfindingManager.onNavigationDatasReady.AddListener(PathFindingReady);            
             targetSelectionDropDown.onValueChanged.AddListener(OnTargetSelected);
             MapRelocationManager.Instance.onPositionFound.AddListener(PositionFound);
-            PathFindingManager.Instance.SetPathRenderer(new CustomPathRenderer());
+            pathRenderer = new CustomPathRenderer(pathPrefab);
+            pathRenderer.OnCalculatedPointList.AddListener(guideBotController.SetWaypointsList);
+            PathFindingManager.Instance.SetPathRenderer(pathRenderer);
         }
 
+        /// <summary>
+        /// Called when position found event is triggered.
+        /// </summary>
+        /// <param name="arg0">Relocation results.</param>
+        /// <param name="arg1"> Coordinate System.</param>
         private void PositionFound(RelocationResults arg0, CoordinateSystem arg1)
         {
-            NavigationButton.gameObject.SetActive(true);
+            navigationButton.gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Enables the target selection dropdown.
+        /// </summary>
         public void EnableTargetSelection()
         {
             targetSelectionDropDown.gameObject.SetActive(targets.Count > 0);
         }
 
         /// <summary>
-        /// Will go to the target selected in the dropdown
+        /// Will go to the target selected in the dropdown.
         /// </summary>
         public void GoToSelectedTarget()
         {
@@ -73,8 +116,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             {
                 pathfindingManager.ClearPath();
                 ITarget target = indexToTarget[selectedTargetIndex];
-                pathfindingManager.ShowPathToTarget(target,0.5f);
-
+                pathfindingManager.ShowPathToTarget(target, 2f);
+                Vector3 targetPosition = target.GetCoordinates();
+                pathRenderer.SetTarget(targetPosition);
+                arrowController.Init(targetPosition);
                 if (locationPrefab != null)
                 {
                     if (locationInstance == null)
@@ -82,9 +127,8 @@ namespace Neogoma.Stardust.Demo.Navigator
                         locationInstance = GameObject.Instantiate(locationPrefab);
                     }
 
-                    locationInstance.transform.position = target.GetCoordnates();
+                    locationInstance.transform.position = targetPosition;
                     locationInstance.SetActive(true);
-
                 }
                
                 StartCoroutine(ReachTarget());
@@ -95,6 +139,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             }
         }
 
+        /// <summary>
+        /// Adds targets to the dropdown selection.
+        /// </summary>
+        /// <param name="allTargets">List of targets.</param>
         private void PathFindingReady(List<ITarget> allTargets)
         {
             targets = allTargets;
@@ -111,6 +159,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             targetSelectionDropDown.AddOptions(allTargetNames);
         }
 
+        /// <summary>
+        /// Called when target selected.
+        /// </summary>
+        /// <param name="val">index of target selected</param>
         private void OnTargetSelected(int val)
         {
             this.selectedTargetIndex = val;
@@ -121,7 +173,10 @@ namespace Neogoma.Stardust.Demo.Navigator
             }
         }
 
-        //starts checking if we reach the target.
+        /// <summary>
+        /// starts checking if we reach the target.
+        /// </summary>
+        /// <returns></returns>
         IEnumerator ReachTarget()
         {
             yield return new WaitForFixedUpdate();
@@ -135,9 +190,7 @@ namespace Neogoma.Stardust.Demo.Navigator
                     yield return new WaitForSeconds(3f);
                     locationInstance.gameObject.SetActive(false);
                     targetReachedHint.gameObject.SetActive(false);
-                    
                     StopAllCoroutines();
-
                 }
                 else
                 {
