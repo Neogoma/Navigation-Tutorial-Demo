@@ -116,9 +116,14 @@
             Triggered to show the global data upload progress
             </summary>
         </member>
-        <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onCurrentPackageUploadEvent">
+        <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onCurrentPackageUploadProgressEvent">
             <summary>
             Triggered to show the current package upload progress
+            </summary>
+        </member>
+        <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onCurrentPackageUploadFinishedEvent">
+            <summary>
+            Triggered when the current package upload is done (returns the number of data sucessfully uploaded)
             </summary>
         </member>
         <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onDataLimitReached">
@@ -139,6 +144,21 @@
         <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onFrameCaptured">
             <summary>
             Triggered when a frame has been captured
+            </summary>
+        </member>
+        <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onSessionCreated">
+            <summary>
+            Triggered when a session has been created
+            </summary>
+        </member>
+        <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onBatchCreated">
+            <summary>
+            Triggered when a batch has been created
+            </summary>
+        </member>
+        <member name="F:com.Neogoma.Stardust.API.Mapping.OfflineMapper.onMapUpdateFail">
+            <summary>
+            Triggered when a map can't be updated (usually because the map doesn't exist anymore on server)
             </summary>
         </member>
         <member name="P:com.Neogoma.Stardust.API.Mapping.OfflineMapper.PicturesTaken">
@@ -165,15 +185,41 @@
             Saves all the offline map data on device
             </summary>
         </member>
-        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.UploadMapDatas(System.String)">
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.UploadMapDatas(System.String,System.Boolean)">
             <summary>
             Will start uploading the map data from device to cloud
             </summary>
             <param name="mapName">Name of the map stored on device</param>
+            <param name="deleteAfterSend">TRUE to delete the map when upload complete, false otherwise</param>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.UploadMapUpdate(com.Neogoma.Stardust.Datamodel.Session,System.Boolean)">
+            <summary>
+            Will start uploading the map data from device to cloud
+            </summary>
+            <param name="session">Session object representing the update stored on device</param>
+            <param name="deleteAfterSend">Deletes the map after sending data</param>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.GetOfflineMapFolder">
+            <summary>
+            Returns the offline map folder
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.GetOfflineUpdatesFolder">
+            <summary>
+            Returns the offline updates folder
+            </summary>
+            <returns></returns>
         </member>
         <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.GetOfflineMapsOnDevice">
             <summary>
             Returns the list of all stored maps on device
+            </summary>
+            <returns>Names of the maps</returns>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.GetOfflineUpdatesOnDevice">
+            <summary>
+            Returns the list of all stored updates on device
             </summary>
             <returns>Names of the maps</returns>
         </member>
@@ -182,6 +228,12 @@
             Creates a new map on device
             </summary>
             <param name="name">Name of the map</param>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.StartMapUpdate(com.Neogoma.Stardust.Datamodel.Session)">
+            <summary>
+            Sets up the update folders and files. If a file already exists then new data will be added to it.
+            </summary>
+            <param name="sessionData"></param>
         </member>
         <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.AddNavigationTarget(UnityEngine.Vector3,System.String)">
             <summary>
@@ -196,9 +248,15 @@
             </summary>
             <param name="name"></param>
         </member>
-        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.DeleteAllLocalMaps">
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.DeleteLocalUpdate(System.String)">
             <summary>
-            Delete all map stored locally
+            Deletes a local update
+            </summary>
+            <param name="uuid"></param>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Mapping.OfflineMapper.DeleteAllLocalDatas">
+            <summary>
+            Delete all datas stored locally
             </summary>
         </member>
         <member name="T:com.Neogoma.Stardust.API.Mapping.MapDataUploader">
@@ -209,6 +267,11 @@
         <member name="P:com.Neogoma.Stardust.API.Mapping.MapDataUploader.Instance">
             <summary>
             Instance of <see cref="T:com.Neogoma.Stardust.API.Mapping.MapDataUploader"/>
+            </summary>
+        </member>
+        <member name="P:com.Neogoma.Stardust.API.Mapping.MapDataUploader.IsOnlineEnabled">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:com.Neogoma.Stardust.API.Mapping.MapDataUploader.CurrentUploadProgres">
@@ -546,7 +609,7 @@
             Returns the current model used by the displayer
             </summary>
         </member>
-        <member name="M:com.Neogoma.Stardust.API.Persistence.AbstractBundleDisplayer.Initialize(com.Neogoma.HoboDream.Network.IGLTFFilesDownloader{com.Neogoma.HoboDream.Network.IGLTFFilesDownloadListener},com.Neogoma.HoboDream.Network.IHTTPConnector{com.Neogoma.HoboDream.Network.IJSonRequestListener},com.Neogoma.Stardust.Datamodel.PersistentObject)">
+        <member name="M:com.Neogoma.Stardust.API.Persistence.AbstractBundleDisplayer.Initialize(com.Neogoma.HoboDream.Network.IGLTFFilesDownloader{com.Neogoma.HoboDream.Network.IGLTFFilesDownloadListener},com.Neogoma.HoboDream.Network.IHTTPConnector{com.Neogoma.HoboDream.Network.IJSonRequestListener},com.Neogoma.HoboDream.Network.IHTTPConnector{com.Neogoma.HoboDream.Network.ITextureDownloadListener},com.Neogoma.Stardust.Datamodel.PersistentObject)">
             <summary>
             Initialize
             </summary>
@@ -574,6 +637,9 @@
             <inheritdoc/>
         </member>
         <member name="M:com.Neogoma.Stardust.API.Persistence.AbstractBundleDisplayer.ObjectFilesDownloaded(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:com.Neogoma.Stardust.API.Persistence.AbstractBundleDisplayer.TextureLoaded(System.String,UnityEngine.Texture2D)">
             <inheritdoc/>
         </member>
         <member name="M:com.Neogoma.Stardust.API.Persistence.AbstractBundleDisplayer.ObjectLoadedSucessfully(UnityEngine.GameObject,com.Neogoma.Stardust.Datamodel.PersistentObject)">
@@ -1784,9 +1850,46 @@
             Manages the android permissions
             </summary>
         </member>
+        <member name="T:com.Neogoma.Stardust.Utils.EditorMeshDownloader">
+            <summary>
+            Mesh downloader 
+            </summary>
+        </member>
+        <member name="P:com.Neogoma.Stardust.Utils.EditorMeshDownloader.StatusCode">
+            <summary>
+            Status code return
+            </summary>
+        </member>
+        <member name="P:com.Neogoma.Stardust.Utils.EditorMeshDownloader.Data">
+            <summary>
+            data of the downloaded mesh
+            </summary>
+        </member>
+        <member name="P:com.Neogoma.Stardust.Utils.EditorMeshDownloader.Progress">
+            <summary>
+            Returns the current status of download
+            </summary>
+        </member>
+        <member name="P:com.Neogoma.Stardust.Utils.EditorMeshDownloader.DownloadFinished">
+            <summary>
+            True when the download is finished
+            </summary>
+        </member>
+        <member name="M:com.Neogoma.Stardust.Utils.EditorMeshDownloader.DownloadMesh(System.String,System.String)">
+            <summary>
+            Download the point cloud from cloud
+            </summary>
+            <param name="apiKey"></param>
+            <param name="mapUUID"></param>
+        </member>
         <member name="T:com.Neogoma.Stardust.Utils.EditorPCDownloader">
             <summary>
             Class in editor to download the point cloud
+            </summary>
+        </member>
+        <member name="P:com.Neogoma.Stardust.Utils.EditorPCDownloader.StatusCode">
+            <summary>
+            Status code of the download
             </summary>
         </member>
         <member name="P:com.Neogoma.Stardust.Utils.EditorPCDownloader.Progress">
