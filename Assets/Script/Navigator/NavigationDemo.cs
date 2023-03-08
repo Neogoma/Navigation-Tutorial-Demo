@@ -51,7 +51,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Target List.
         /// </summary>
-        public List<ITarget> targets;
+        public ITarget[] targets;
         /// <summary>
         /// location prefab.
         /// </summary>
@@ -104,7 +104,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         public void EnableTargetSelection()
         {
-            targetSelectionDropDown.gameObject.SetActive(targets.Count > 0);
+            targetSelectionDropDown.gameObject.SetActive(targets.Length > 0);
         }
 
         /// <summary>
@@ -143,14 +143,14 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// Adds targets to the dropdown selection.
         /// </summary>
         /// <param name="allTargets">List of targets.</param>
-        private void PathFindingReady(List<ITarget> allTargets)
+        private void PathFindingReady(ITarget[] allTargets)
         {
             targets = allTargets;
             targetSelectionDropDown.ClearOptions();
 
             List<string> allTargetNames = new List<string>();
             allTargetNames.Add("No target");
-            for (int i = 0; i < allTargets.Count; i++)
+            for (int i = 0; i < allTargets.Length; i++)
             {
                 string targetName = allTargets[i].GetTargetName();
                 allTargetNames.Add(targetName);                

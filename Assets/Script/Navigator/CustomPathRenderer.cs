@@ -61,9 +61,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <param name="allNavigationsPoints">Navigation point list calculated in PathFindingManager.cs </param>
         public void DisplayPath(List<IOctreeCoordinateObject> allNavigationsPoints)
         {
-            ExtendPath(allNavigationsPoints);
-            InitPath();
-            OnCalculatedPointList.Invoke(positionList);
+            
         }
 
         /// <summary>
@@ -145,6 +143,12 @@ namespace Neogoma.Stardust.Demo.Navigator
             this.target = target;
         }
 
+        public void DisplayPath(Vector3 playerPosition, List<IOctreeCoordinateObject> allNavigationsPoint)
+        {
+            ExtendPath(allNavigationsPoint);
+            InitPath();
+            OnCalculatedPointList.Invoke(positionList);
+        }
     }
 }
 
