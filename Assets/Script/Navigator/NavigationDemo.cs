@@ -45,10 +45,6 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// </summary>
         public GuideBotController guideBotController;
         /// <summary>
-        /// Arrow controller component.
-        /// </summary>
-        public ArrowController arrowController;
-        /// <summary>
         /// Target List.
         /// </summary>
         public ITarget[] targets;
@@ -119,7 +115,7 @@ namespace Neogoma.Stardust.Demo.Navigator
                 pathfindingManager.ShowPathToTarget(target, 2f);
                 Vector3 targetPosition = target.GetCoordinates();
                 pathRenderer.SetTarget(targetPosition);
-                arrowController.Init(targetPosition);
+                
                 if (locationPrefab != null)
                 {
                     if (locationInstance == null)

@@ -4078,7 +4078,6 @@ MonoBehaviour:
   pathPrefab: {fileID: 6042218649217009552, guid: 53d2615dae8c13b45bde8a052e14e53f,
     type: 3}
   guideBotController: {fileID: 1010431717}
-  arrowController: {fileID: 1621255718}
 --- !u!114 &1380266227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6139,6 +6138,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: NavControl, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &2034405631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6471,7 +6482,7 @@ PrefabInstance:
     - target: {fileID: 1625302628289066651, guid: c7e42545d6a04f842a635bf1dc65b195,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1625302628289066651, guid: c7e42545d6a04f842a635bf1dc65b195,
         type: 3}
@@ -6497,7 +6508,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
-      objectReference: {fileID: 558352513}
+      objectReference: {fileID: 831528680}
     - target: {fileID: 1625302628289066651, guid: c7e42545d6a04f842a635bf1dc65b195,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[4].m_Target
