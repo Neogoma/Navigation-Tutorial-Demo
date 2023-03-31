@@ -29,6 +29,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         private void Start()
         {
             rt = GetComponent<RectTransform>();
+            transform.parent.gameObject.SetActive(false);
         }
         private void Update()
         {
