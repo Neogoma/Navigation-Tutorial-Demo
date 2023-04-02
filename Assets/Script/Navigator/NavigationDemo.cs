@@ -71,7 +71,7 @@ namespace Neogoma.Stardust.Demo.Navigator
         /// <summary>
         /// Custom Path Renderer: overrides the way the path is displayed.
         /// </summary>
-        private CustomPathRenderer pathRenderer;
+        private BotPathRenderer pathRenderer;
 
         private void Start()
         {
@@ -80,7 +80,7 @@ namespace Neogoma.Stardust.Demo.Navigator
             pathfindingManager.onNavigationDatasReady.AddListener(PathFindingReady);            
             targetSelectionDropDown.onValueChanged.AddListener(OnTargetSelected);
             MapRelocationManager.Instance.onPositionFound.AddListener(PositionFound);
-            pathRenderer = new CustomPathRenderer(pathPrefab);
+            pathRenderer = new BotPathRenderer(pathPrefab);
             pathRenderer.OnCalculatedPointList.AddListener(guideBotController.SetWaypointsList);
             PathFindingManager.Instance.SetPathRenderer(pathRenderer);
         }
@@ -114,7 +114,7 @@ namespace Neogoma.Stardust.Demo.Navigator
                 ITarget target = indexToTarget[selectedTargetIndex];
                 pathfindingManager.ShowPathToTarget(target, 2f);
                 Vector3 targetPosition = target.GetCoordinates();
-                pathRenderer.SetTarget(targetPosition);
+                
                 
                 if (locationPrefab != null)
                 {
