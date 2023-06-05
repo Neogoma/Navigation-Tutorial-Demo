@@ -5,6 +5,12 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 4
   m_ConfigSettings:
+    HideARKitFaceTrackingDeprecatedWarning:
+      value: 17434103
+      flags: 0
+    HideARSubsystemsDeprecatedWarning:
+      value: 17434103
+      flags: 0
     RecentlyUsedSceneGuid-0:
       value: 5604010252505b5f095d0f23117b0844134f497f7a7d76312e701935bae5326c
       flags: 0
